@@ -1,56 +1,47 @@
+/*
+    1. Creating fragments
+    2. Creating components iwth factories
+    3. Adding event listeners to components
+    4. Adding components to DOM
+    5. Clearing fields
+*/
 
-//Final OUtput DOM component reference
+const DomBuilder = require("./DOMbuilder")
+const CardFactory = require("./CardFactory")
+const InputFieldFactory = require("./InputFieldFactory")
+const ButtonFactory = require("./ButtonFactory")
+
+
+// Final output DOM component reference
 const output = document.querySelector(".output")
 
-//Fragment to hold all the stuff, so we inject into the DOM once
+// Fragment to hold all the stuff so we inject into the DOM once
 const fragment = document.createDocumentFragment()
 
-// Create factory function to generate components
-// Create input componnent
-const inputFieldFactory = (classList, defaultPlaceholderText, type) => {
-    const inputField = document.createElement("input")
-    inputField.setAttribute("type", type)
-    inputField.classList = classList
-    inputField.placeholder = defaultPlaceholderText
-    return inputField
-}
-
-// Create button component
-const buttonFactory = (classList, textContent) => {
-    const theButton = document.createElement("button")
-    theButton.classList = classList
-    theButton.textContent = textContent
-    return theButton
-}
 
 
+const createCardButton = ButtonFactory(
+    "button--submit",
+    "Create Card",
+    function () {
+        const userEntry = cardTextInput.value
+        output.appendChild(CardFactory("card", userEntry))
+        cardTextInput.value = ""
+    })
 
-// Attach event listener to button
-createCardButton.addEventListener("click", function () {
+const cardTextInput = InputFieldFactory("input--text", "Enter card text here", "text")
+
+/*
+    Attach event listener to button
+*/
+
     // 1. Get value of input field
-    const userEntry = cardTextInput.textContent
+
     // 2. Create card component with text inside
 
-})
-
-
-
-const createCardButton = buttonFactory("button--submit", "Create Card")
-const cardTextInput = ("input--text", "Enter card text here", "text")
-
-
-fragment.appendChild(cardTextInputs)
+fragment.appendChild(cardTextInput)
 fragment.appendChild(createCardButton)
 
 
 
-
-// Create card component
-
-//
-
-
-
-
 output.appendChild(fragment)
-
